@@ -1,0 +1,20 @@
+[ui]
+username = Mike Macpherson <mike.macpherson@gmail.com>
+verbose  = True
+ignore   = ~/.hgignore
+
+[alias]
+st  = status -mard
+sta = status
+stu = status -u
+pull = pull -u
+
+[merge-tools]
+emacs.args = -q --eval "(ediff-merge-with-ancestor \"$local\" \"$other\" \"$base\" nil \"$output\")"
+
+[extensions]
+color =
+hgext.fetch = 
+
+[hooks]
+commit.autopush = hg push
