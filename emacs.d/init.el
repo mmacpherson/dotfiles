@@ -35,7 +35,8 @@
         ("ivy"       . "MELPA")
         ("ivy-hydra" . "MELPA")
         ("counsel"   . "MELPA")
-        ("swiper"    . "MELPA"))
+        ("swiper"    . "MELPA")
+	)
       )
 
 (package-initialize)
@@ -68,7 +69,6 @@
          ))
 
 ;; External Package Config
-
 (use-package seq
   :ensure t)
 
@@ -139,14 +139,16 @@
 ;; monky blows up on the mac in hg server mode
 (if (eq system-type 'darwin)
     (use-package monky
+      :ensure t
       :config
-      (setq monky-process-type nil)
+      (validate-setq monky-process-type nil)
       )
-    (use-package monky
-      :config
-      (setq monky-process-type 'cmdserver)
-      )
+  (use-package monky
+    :ensure t
+    :config
+    (validate-setq monky-process-type 'cmdserver)
     )
+  )
 
 (use-package company                    ; Graphical (auto-)completion
   :ensure t
@@ -377,13 +379,19 @@
    ;; Just in case we ever need these keys
    mac-function-modifier 'hyper))
 
-(use-package ns-win                     ; OS X window support
-  :defer t
+;; (use-package ns-win                     ; OS X window support
+;;   :defer t
+;;   :if (eq system-type 'darwin)
+;;   :ensure t
+;;   :config
+;;   (validate-setq
+;;    ;; Don't pop up new frames from the workspace
+;;    ns-pop-up-frames nil))
+
+(use-package exec-path-from-shell
   :if (eq system-type 'darwin)
-  :config
-  (validate-setq
-   ;; Don't pop up new frames from the workspace
-   ns-pop-up-frames nil))
+  :ensure t
+  :init (exec-path-from-shell-initialize))
 
 (use-package osx                        ;  OS X tools
   :if (eq system-type 'darwin)
