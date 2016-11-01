@@ -141,12 +141,12 @@
     (use-package monky
       :ensure t
       :config
-      (validate-setq monky-process-type nil)
+      (setq monky-process-type nil)
       )
   (use-package monky
     :ensure t
     :config
-    (validate-setq monky-process-type 'cmdserver)
+    (setq monky-process-type 'cmdserver)
     )
   )
 
