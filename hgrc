@@ -1,5 +1,5 @@
 [ui]
-username = Mike Macpherson <mike.macpherson@gmail.com>
+username = Mike Macpherson <mike.macpherson@bitbucket-anonymous>
 verbose  = True
 ignore   = ~/.hgignore
 
@@ -14,7 +14,7 @@ emacs.args = -q --eval "(ediff-merge-with-ancestor \"$local\" \"$other\" \"$base
 
 [extensions]
 color =
-hgext.fetch = 
+hgext.fetch =
 
 [hooks]
 commit.autopush = hg push

@@ -141,12 +141,12 @@
     (use-package monky
       :ensure t
       :config
-      (validate-setq monky-process-type nil)
+      (setq monky-process-type nil)
       )
   (use-package monky
     :ensure t
     :config
-    (validate-setq monky-process-type 'cmdserver)
+    (setq monky-process-type 'cmdserver)
     )
   )
 
@@ -185,9 +185,10 @@
 (use-package deft
   :ensure t
   :config
-  (setq deft-extensions '("txt" "tex" "org")
+  (validate-setq deft-extensions '("txt" "tex" "org")
 	deft-directory (concat dropbox-path "/notes")
-	deft-recursive t)
+	deft-recursive t
+	deft-auto-save-interval 30.0)
   )
 
 (use-package buffer-move
