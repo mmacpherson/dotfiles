@@ -78,7 +78,7 @@
 (use-package tern
   :ensure t
   :load-path "../.npm-global/lib/node_modules/tern/emacs"
-)
+  )
 
 (use-package hl-line
   :config (set-face-background 'hl-line "#073642")
@@ -100,7 +100,7 @@
   :ensure t
   :after ivy
   :bind (:map ivy-minibuffer-map
-         ("C-o" . hydra-ivy/body)))
+	      ("C-o" . hydra-ivy/body)))
 
 (use-package counsel                    ; Ivy-powered commands
   :ensure t
@@ -223,6 +223,61 @@
 			'(javascript-jshint)))
   )
 
+(use-package powerline
+  :ensure t
+  :config
+  (powerline-default-theme)
+  (validate-setq powerline-default-separator 'contour)
+  )
+
+(use-package elfeed
+  :ensure t
+  :config
+  (progn
+    (global-set-key (kbd "C-x w") 'elfeed)
+    (setq elfeed-feeds
+	'(
+	  ("http://lifehacker.com/index.xml" main advice)
+	  ("http://fivethirtyeight.com/features/feed/" main politics)
+	  ("http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml" main upshot)
+
+	  ("http://andrewgelman.com/feed/" main data)
+	  ("http://feeds.feedburner.com/FlowingData" main data)
+	  ("http://norvig.com/rss-feed.xml" main data)
+	  ("http://matt.might.net/articles/feed.rss" main data)
+	  ("http://andrew.gibiansky.com/feed.rss" main data)
+	  ("http://sabermetricinsights.blogspot.com/feeds/posts/default?alt=rss" main data)
+	  ("http://www.johndcook.com/blog/feed/" main data)
+	  ("http://www.randalolson.com/feed/" main data)
+	  ("http://radfordneal.wordpress.com/feed/" main data)
+	  ("http://healthyalgorithms.wordpress.com/feed/" main data)
+
+	  ("http://www.masteringemacs.org/feed/" main emacs)
+	  ("http://pragmaticemacs.com/feed/" main emacs)
+
+
+	  ("http://blog.megafaunasoft.com/feeds/posts/default" main brian)
+	  ("http://blog.booleanbiotech.com/feeds/all.atom.xml" main brian data)
+
+	  ("http://swannodette.github.com/atom.xml" main clojure)
+
+	  ("http://feeds2.feedburner.com/MarksDailyApple/" main fitness diet)
+	  ("http://eatingacademy.com/feed" main diet)
+	  ("http://rawfoodsos.com/feed/" main diet)
+
+	  ("http://www.catalystathletics.com/rss/index.php" main fitness)
+	  ("http://mentalitywod.com/feed/" main fitness)
+
+	  ("http://feeds.feedburner.com/zenhabits" main advice)
+	  ("http://www.scottberkun.com/feed/" main advice)
+
+
+	  ("http://datawod.com/feed.atom" main mine data)
+	  ("http://blog.macphunk.net/feed.xml" main mine)
+	  )
+	(setq-default elfeed-search-filter "@1-week-ago +unread ")
+	)))
+
 ;; (use-package flyspell)
 ;; ;; flyspell config
 ;; (setq flyspell-issue-welcome-flag nil)
@@ -269,7 +324,7 @@
 (use-package ess
   :ensure t
   :defer
- )
+  )
 
 ;; (use-package smex)
 
@@ -301,7 +356,7 @@
                         (setq web-mode-script-padding 2)))))
 
 (use-package writegood-mode
-   :ensure t)
+  :ensure t)
 
 ;; (use-package uniquify
 ;;   :ensure t
@@ -480,6 +535,10 @@
 ;;(setq x-select-enable-clipboard t)
 ;;(setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
+;; Don't pollute my init file!
+(setq custom-file "~/.emacs.d/custom.el")
+(load custom-file 'noerror)
+
 ;; show trailing whitespace
 (setq-default show-trailing-whitespace t)
 
@@ -543,6 +602,14 @@
 ;; zsh files are scripts yo
 (add-to-list 'auto-mode-alist '("\\.zsh$" . shell-script-mode))
 
+;; safety check
+(bind-key
+ "C-x C-c"
+ (lambda ()
+   (interactive)
+   (if (y-or-n-p "Quit Emacs? ")
+       (save-buffers-kill-emacs))))
+
 
 ;; set color theme
 ;; (if window-system
@@ -558,59 +625,142 @@
 ;;              '(font . "Deja Vu Sans Mono-12"))
 
 
-(bind-key
- "C-x C-c"
- (lambda ()
-   (interactive)
-   (if (y-or-n-p "Quit Emacs? ")
-       (save-buffers-kill-emacs))))
+;; '(elfeed-feeds
+;;   (quote
+;;    (
+;;     "http://www.perceptualedge.com/blog/?feed=rss2"
+;;     "http://feeds.feedburner.com/well-formed_data"
 
-;; (if (eq system-type 'darwin)
-;;     (progn
-;;       ;; Switch the Cmd and Meta keys
-;;       (setq mac-option-key-is-meta nil)
-;;       (setq mac-command-key-is-meta t)
-;;       (setq mac-command-modifier 'meta)
-;;       (setq mac-option-modifier nil)
+;;     "http://www.tom-carden.co.uk/feed/"
+;;     "http://anand.typepad.com/datawocky/atom.xml"
+;;     "http://strangemaps.wordpress.com/feed/"
+;;     "http://feeds.infosthetics.com/infosthetics"
+;;     "http://prog21.dadgum.com/atom.xml"
+;;     "http://lesswrong.com/.rss"
+;;     "http://blog.kaggle.com/feed/"
+;;     "http://xkcd.com/atom.xml"
+;;     "http://slatestarcodex.com/feed/"
+;;     "http://zedshaw.com/feed.xml"
+;;     "http://teddziuba.com/atom.xml"
+;;     "http://romainfrancois.blog.free.fr/index.php?feed/atom"
+;;     "http://emacs-fu.blogspot.com/feeds/posts/default"
+;;     "http://feeds.feedburner.com/MarcAndAngel"
+;;     "http://benfry.com/writing/feed"
+;;     "http://dmbates.blogspot.com/feeds/posts/default"
+;;     "http://data-analytics-tools.blogspot.com/feeds/posts/default"
 
-;;       ;; visible bell is buggy on os x
-;;       (setq visible-bell nil)
-;;       (defun my-terminal-visible-bell ()
-;; 	"A friendlier visual bell effect."
-;; 	(invert-face 'mode-line)
-;; 	(run-with-timer 0.1 nil 'invert-face 'mode-line))
-;;       (setq ring-bell-function #'my-terminal-visible-bell)
+;;     "http://cscs.umich.edu/~crshalizi/weblog/index.rss"
+;;     "http://matthewrocklin.com/blog/atom.xml"
+;;     "http://feeds.feedburner.com/zurb/blog"
 
-;;       ;;
-;;       (add-to-list 'exec-path "/usr/local/bin")
+;;     "http://pyre.third-bit.com/blog/feed"
+;;     "http://nlpers.blogspot.com/feeds/posts/default"
+;;     "http://austinrochford.com/rss.xml"
+;;     "http://earningmyturns.blogspot.com/feeds/posts/default"
+;;     "http://pulpnoir.com/?feed=rss2"
+;;     "http://feeds.feedburner.com/QuantifiedSelf"
+;;     "http://feeds.feedburner.com/data-evolution"
+;;     "http://feeds.feedburner.com/michaelnielsen/wmna"
+;;     "http://feeds.feedburner.com/BrendanOConnorsBlog"
+;;     "http://feeds.feedburner.com/ThisNumberCrunchingLife"
+;;     "http://feeds.feedburner.com/StatisticalModelingCausalInferenceAndSocialScience"
+;;     "http://clemesha.org/feeds/rss"
+;;     "http://utcc.utoronto.ca/~cks/space/blog/python/?atom"
 
-;;       ;; Menu bar is not annoying in OSX
-;;       (menu-bar-mode 1)
+;;     "http://blogs.law.harvard.edu/philg/feed/rdf/"
+;;     "http://diveintomark.org/feed/"
 
-;;       ;; Make the browser the OS X default
-;;       (setq browse-url-browser-function 'browse-url-default-macosx-browser)
 
-;;       ;; In dired, move deletions to trash
-;;       (setq delete-by-moving-to-trash t)
 
-;;       ;; Set font
-;;       ;; (set-default-font "-apple-Source_Code_Pro-medium-normal-normal-*-*-*-*-*-m-0-iso10646-1")
-;;       ;; (set-face-attribute 'default t :font "Source Code Pro" )
-;;       (custom-set-faces
-;;        ;; custom-set-faces was added by Custom.
-;;        ;; If you edit it by hand, you could mess it up, so be careful.
-;;        ;; Your init file should contain only one such instance.
-;;        ;; If there is more than one, they won't work right.
-;;        '(default ((t (:inherit nil :stipple nil :background "White" :foreground "Black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 120 :width normal :foundry "nil" :family "Source Code Pro")))))
 
-;;       (defun finder ()
-;; 	"Opens file directory in Finder."
-;; 	(interactive)
-;; 	(let ((file (buffer-file-name)))
-;; 	  (if file
-;; 	      (shell-command
-;; 	       (format "%s %s" (executable-find "open") (file-name-directory file)))
-;; 	    (error "Buffer is not attached to any file."))))
+;;     "http://www.bbc.co.uk/blogs/markkermode/rss.xml"
+;;     "http://hunch.net/?feed=rss2"
+;;     "http://blog.mdda.net/atom.xml"
+;;     "http://steve-yegge.blogspot.com/feeds/posts/default"
+;;     "http://emacsworld.blogspot.com/feeds/posts/default"
+;;     "http://www.mfasold.net/blog/feed/"
+;;     "http://toddwschneider.com/atom.xml"
 
-;;       )
-;;   )
+
+
+;;     "http://www.python.org/channews.rdf"
+;;     "http://morepypy.blogspot.com/feeds/posts/default"
+;;     "http://planet.scipy.org/atom.xml"
+;;     "http://www.artima.com/buzz/feeds/python.rss"
+;;     "http://www.pythonware.com/daily/rss.xml"
+
+
+;;     "http://fivethirtyeight.blogs.nytimes.com/feed/"
+
+;;     "http://www.whitehouse.gov/feed/blog"
+;;     "http://feeds.feedburner.com/thehealthyskeptic"
+;;     "http://chrispconstantlyvaried.blogspot.com/feeds/posts/default"
+;;     "http://thatpaleoguy.com/feed/"
+;;     "http://robbwolf.libsyn.com/rss?feed=podcast/"
+;;     "http://www.archevore.com/panu-weblog/atom.xml"
+;;     "http://www.alanaragonblog.com/feed/"
+;;     "http://www.cavemandoctor.com/feed/"
+;;     "http://garytaubes.com/feed/"
+;;     "http://perfecthealthdiet.com/?feed=rss2"
+;;     "http://feeds.feedburner.com/drmikenutritionblog"
+
+;;     "http://wholehealthsource.blogspot.com/feeds/posts/default"
+;;     "http://anthonycolpo.com/?feed=rss2"
+;;     "http://feeds.feedburner.com/RobbWolfThePaleoSolution"
+;;     "http://www.crossfit.com/index1.xml"
+;;     "http://www.jesliao.com/feeds/posts/default"
+;;     "http://www.mobilitywod.com/feed"
+
+;;     "http://www.crossfitactiveperformance.com/index.php/recommended-resources/blog?format=feed&type=rss"
+;;     "http://crossfitmobile.blogspot.com/feeds/posts/default"
+;;     "http://www.evatstrengthandconditioning.com/category/blog/feed/"
+;;     "http://norcalcrossfit-fuel.blogspot.com/feeds/posts/default"
+;;     "http://www.tabatatimes.com/feed/"
+;;     "http://outlawway.wpengine.com/feed/"
+;;     "http://therxreview.com/feed/"
+;;     "http://akicloherty.com/feed/"
+;;     "http://xfit2011.blogspot.com/feeds/posts/default"
+;;     "http://teddykim.com/feed/"
+
+;;     "http://graycook.com/?feed=rss2"
+;;     "http://theeternalpursuit.com/feed/"
+;;     "http://cfganalysis.blogspot.com/feeds/posts/default"
+;;     "http://blog.sevanmatossian.com/?feed=rss2"
+;;     "http://journal.crossfit.com/rss.xml"
+;;     "http://glennpendlay.wordpress.com/feed/"
+
+;;     "http://feeds.feedburner.com/bigdawgblog"
+
+;;     "http://70sbig.com/feed/"
+;;     "http://danjohn.net/feed/"
+;;     "http://www.datawod.com/feed"
+;;     "http://marcusfilly.com/feed/"
+;;     "http://www.crossfitinvictus.com/feed/"
+
+;;     "http://stanfordcehg.wordpress.com/feed/"
+;;     "http://www.thegeneticgenealogist.com/feed/"
+;;     "http://spittoon.23andme.com/feed/atom/"
+;;     "http://feeds.feedburner.com/scienceblogs/gnxp"
+;;     "http://www.iq.harvard.edu/blog/sss/atom.xml"
+;;     "http://www.wired.com/wiredscience/category/genetic-future/feed"
+;;     "http://feeds.feedburner.com/GenomesUnzipped"
+;;     "http://www.genomeweb.com/newsletter/69886/feed"
+;;     "http://www.genetic-future.com/feeds/posts/default"
+;;     "http://www.cell.com/rssFeed/AJHG/rss.NewArticles.xml"
+;;     "http://www.nature.com/nrg/current_issue/rss"
+;;     "http://www.nature.com/nature/journal/vaop/ncurrent/rss.rdf"
+;;     "http://www.genetics.org/rss/Genetics_of_complex_traits.xml"
+;;     "http://onlinelibrary.wiley.com/rss/journal/10.1002/(ISSN)1098-2272"
+;;     "http://www.genetics.org/rss/Population_and_evolutionary_genetics.xml"
+;;     "http://www.plosgenetics.org/article/feed"
+;;     "http://genome.cshlp.org/rss/ahead.xml"
+;;     "http://www.ploscompbiol.org/article/feed"
+;;     "http://mbe.oxfordjournals.org/rss/current.xml"
+;;     "http://evmedreview.com/?feed=rss2"
+;;     "http://biology.plosjournals.org/perlserv/?request=get-rss&issn=1545-7885&type=new-articles"
+;;     "http://www.nature.com/ng/current_issue/rss/"
+;;     "http://peakenergy.blogspot.com/feeds/posts/default"
+;;     "https://www.dropbox.com/3237645/5150745/kpLzlzxWRKp1np3qkRYRjrQ4gqoTY2kI7bERgeHP/events.xml"
+;;     "http://nullprogram.com/feed/"
+;;     "http://www.terminally-incoherent.com/blog/feed/"
+;;     )))
