@@ -141,11 +141,13 @@
     (use-package monky
       :ensure t
       :config
+      (global-set-key (kbd "C-x q") 'monky-status)
       (setq monky-process-type nil)
       )
   (use-package monky
     :ensure t
     :config
+    (global-set-key (kbd "C-x q") 'monky-status)
     (setq monky-process-type 'cmdserver)
     )
   )
@@ -185,10 +187,11 @@
 (use-package deft
   :ensure t
   :config
+  (global-set-key (kbd "C-x e") 'deft)
   (validate-setq deft-extensions '("txt" "tex" "org")
-	deft-directory (concat dropbox-path "/notes")
-	deft-recursive t
-	deft-auto-save-interval 30.0)
+		 deft-directory (concat dropbox-path "/notes")
+		 deft-recursive t
+		 deft-auto-save-interval 30.0)
   )
 
 (use-package buffer-move
@@ -234,50 +237,50 @@
 (use-package elfeed
   :ensure t
   :config
-  (progn
-    (global-set-key (kbd "C-x w") 'elfeed)
-    (setq elfeed-feeds
-	'(
-	  ("http://lifehacker.com/index.xml" main advice)
-	  ("http://fivethirtyeight.com/features/feed/" main politics)
-	  ("http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml" main upshot)
+  (global-set-key (kbd "C-x w") 'elfeed)
+  (validate-setq elfeed-feeds
+		 '(
+		   ("http://lifehacker.com/index.xml" main advice)
+		   ("http://fivethirtyeight.com/features/feed/" main politics)
+		   ("http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml" main upshot)
 
-	  ("http://andrewgelman.com/feed/" main data)
-	  ("http://feeds.feedburner.com/FlowingData" main data)
-	  ("http://norvig.com/rss-feed.xml" main data)
-	  ("http://matt.might.net/articles/feed.rss" main data)
-	  ("http://andrew.gibiansky.com/feed.rss" main data)
-	  ("http://sabermetricinsights.blogspot.com/feeds/posts/default?alt=rss" main data)
-	  ("http://www.johndcook.com/blog/feed/" main data)
-	  ("http://www.randalolson.com/feed/" main data)
-	  ("http://radfordneal.wordpress.com/feed/" main data)
-	  ("http://healthyalgorithms.wordpress.com/feed/" main data)
+		   ("http://andrewgelman.com/feed/" main data)
+		   ("http://feeds.feedburner.com/FlowingData" main data)
+		   ("http://norvig.com/rss-feed.xml" main data)
+		   ("http://matt.might.net/articles/feed.rss" main data)
+		   ("http://andrew.gibiansky.com/feed.rss" main data)
+		   ("http://sabermetricinsights.blogspot.com/feeds/posts/default?alt=rss" main data)
+		   ("http://www.johndcook.com/blog/feed/" main data)
+		   ("http://www.randalolson.com/feed/" main data)
+		   ("http://radfordneal.wordpress.com/feed/" main data)
+		   ("http://healthyalgorithms.wordpress.com/feed/" main data)
 
-	  ("http://www.masteringemacs.org/feed/" main emacs)
-	  ("http://pragmaticemacs.com/feed/" main emacs)
-
-
-	  ("http://blog.megafaunasoft.com/feeds/posts/default" main brian)
-	  ("http://blog.booleanbiotech.com/feeds/all.atom.xml" main brian data)
-
-	  ("http://swannodette.github.com/atom.xml" main clojure)
-
-	  ("http://feeds2.feedburner.com/MarksDailyApple/" main fitness diet)
-	  ("http://eatingacademy.com/feed" main diet)
-	  ("http://rawfoodsos.com/feed/" main diet)
-
-	  ("http://www.catalystathletics.com/rss/index.php" main fitness)
-	  ("http://mentalitywod.com/feed/" main fitness)
-
-	  ("http://feeds.feedburner.com/zenhabits" main advice)
-	  ("http://www.scottberkun.com/feed/" main advice)
+		   ("http://www.masteringemacs.org/feed/" main emacs)
+		   ("http://pragmaticemacs.com/feed/" main emacs)
 
 
-	  ("http://datawod.com/feed.atom" main mine data)
-	  ("http://blog.macphunk.net/feed.xml" main mine)
-	  )
-	(setq-default elfeed-search-filter "@1-week-ago +unread ")
-	)))
+		   ("http://blog.megafaunasoft.com/feeds/posts/default" main brian)
+		   ("http://blog.booleanbiotech.com/feeds/all.atom.xml" main brian data)
+
+		   ("http://swannodette.github.com/atom.xml" main clojure)
+
+		   ("http://feeds2.feedburner.com/MarksDailyApple/" main fitness diet)
+		   ("http://eatingacademy.com/feed" main diet)
+		   ("http://rawfoodsos.com/feed/" main diet)
+
+		   ("http://www.catalystathletics.com/rss/index.php" main fitness)
+		   ("http://mentalitywod.com/feed/" main fitness)
+
+		   ("http://feeds.feedburner.com/zenhabits" main advice)
+		   ("http://www.scottberkun.com/feed/" main advice)
+
+
+		   ("http://datawod.com/feed.atom" main mine data)
+		   ("http://blog.macphunk.net/feed.xml" main mine)
+		   ))
+  (validate-setq elfeed-use-curl t)
+  (setq-default elfeed-search-filter "@1-week-ago +unread ")
+  )
 
 ;; (use-package flyspell)
 ;; ;; flyspell config
@@ -301,17 +304,17 @@
     (bind-key "M-n" 'open-line-below markdown-mode-map)
     (bind-key "M-p" 'open-line-above markdown-mode-map))
   :mode (("\\.markdown$" . markdown-mode)
-         ("\\.mdown$" . markdown-mode)
-         ("\\.md$" . markdown-mode)
+	 ("\\.mdown$" . markdown-mode)
+	 ("\\.md$" . markdown-mode)
 	 ("\\.txt$" . markdown-mode))
   :init (setq markdown-command "multimarkdown")
   ;; :init (setq markdown-command "pandoc --smart -f markdown -t html")
   )
 (add-hook 'markdown-mode-hook
-          (lambda ()
-            (visual-line-mode t)
-            (writegood-mode t)
-            (flyspell-mode t)))
+	  (lambda ()
+	    (visual-line-mode t)
+	    (writegood-mode t)
+	    (flyspell-mode t)))
 ;; (defvar mikemac/vendor-dir (expand-file-name "vendor" user-emacs-directory))
 ;; (add-to-list 'load-path mikemac/vendor-dir)
 ;; (setq markdown-css-paths `(,(expand-file-name "markdown.css" mikemac/vendor-dir)))
@@ -346,15 +349,15 @@
 (use-package web-mode
   :ensure t
   :init (progn
-          (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
-          (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
+	  (add-to-list 'auto-mode-alist '("\\.erb\\'" . web-mode))
+	  (add-to-list 'auto-mode-alist '("\\.html?\\'" . web-mode)))
   :config (progn
-            (add-hook 'web-mode-hook
-                      (lambda ()
-                        (setq web-mode-enable-css-colorization t)
-                        (setq web-mode-markup-indent-offset 2)
-                        (setq web-mode-style-padding 2)
-                        (setq web-mode-script-padding 2)))))
+	    (add-hook 'web-mode-hook
+		      (lambda ()
+			(setq web-mode-enable-css-colorization t)
+			(setq web-mode-markup-indent-offset 2)
+			(setq web-mode-style-padding 2)
+			(setq web-mode-script-padding 2)))))
 
 (use-package writegood-mode
   :ensure t)
@@ -386,16 +389,16 @@
   :ensure t
   :mode (("\\.js$" . js2-mode)
 	 ("\\.json$" . js2-mode)
-         ("Jakefile$" . js2-mode))
+	 ("Jakefile$" . js2-mode))
   :interpreter ("node" . js2-mode)
   :bind (;;("C-a" . back-to-indentation-or-beginning-of-line)
-         ("C-M-h" . backward-kill-word))
+	 ("C-M-h" . backward-kill-word))
   :config
   (progn
     (add-hook 'js2-mode-hook (lambda () (setq js2-basic-offset 2)))
     (add-hook 'js2-mode-hook (lambda () (tern-mode t)))
     (add-hook 'js2-mode-hook (lambda ()
-                               (bind-key "M-j" 'join-line-or-lines-in-region js2-mode-map)))
+			       (bind-key "M-j" 'join-line-or-lines-in-region js2-mode-map)))
     ))
 
 ;; (use-package dired-x)
