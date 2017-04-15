@@ -186,9 +186,9 @@
   :ensure t
   :config
   (validate-setq deft-extensions '("txt" "tex" "org")
-	deft-directory (concat dropbox-path "/notes")
-	deft-recursive t
-	deft-auto-save-interval 30.0)
+		 deft-directory (concat dropbox-path "/notes")
+		 deft-recursive t
+		 deft-auto-save-interval 30.0)
   )
 
 (use-package buffer-move
@@ -237,47 +237,48 @@
   (progn
     (global-set-key (kbd "C-x w") 'elfeed)
     (setq elfeed-feeds
-	'(
-	  ("http://lifehacker.com/index.xml" main advice)
-	  ("http://fivethirtyeight.com/features/feed/" main politics)
-	  ("http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml" main upshot)
+	  '(
+	    ("http://lifehacker.com/index.xml" main advice)
+	    ("http://fivethirtyeight.com/features/feed/" main politics)
+	    ("http://rss.nytimes.com/services/xml/rss/nyt/Upshot.xml" main upshot)
 
-	  ("http://andrewgelman.com/feed/" main data)
-	  ("http://feeds.feedburner.com/FlowingData" main data)
-	  ("http://norvig.com/rss-feed.xml" main data)
-	  ("http://matt.might.net/articles/feed.rss" main data)
-	  ("http://andrew.gibiansky.com/feed.rss" main data)
-	  ("http://sabermetricinsights.blogspot.com/feeds/posts/default?alt=rss" main data)
-	  ("http://www.johndcook.com/blog/feed/" main data)
-	  ("http://www.randalolson.com/feed/" main data)
-	  ("http://radfordneal.wordpress.com/feed/" main data)
-	  ("http://healthyalgorithms.wordpress.com/feed/" main data)
+	    ("http://andrewgelman.com/feed/" main data)
+	    ("http://feeds.feedburner.com/FlowingData" main data)
+	    ("http://norvig.com/rss-feed.xml" main data)
+	    ("http://matt.might.net/articles/feed.rss" main data)
+	    ("http://andrew.gibiansky.com/feed.rss" main data)
+	    ("http://sabermetricinsights.blogspot.com/feeds/posts/default?alt=rss" main data)
+	    ("http://www.johndcook.com/blog/feed/" main data)
+	    ("http://www.randalolson.com/feed/" main data)
+	    ("http://radfordneal.wordpress.com/feed/" main data)
+	    ("http://healthyalgorithms.wordpress.com/feed/" main data)
 
-	  ("http://www.masteringemacs.org/feed/" main emacs)
-	  ("http://pragmaticemacs.com/feed/" main emacs)
-
-
-	  ("http://blog.megafaunasoft.com/feeds/posts/default" main brian)
-	  ("http://blog.booleanbiotech.com/feeds/all.atom.xml" main brian data)
-
-	  ("http://swannodette.github.com/atom.xml" main clojure)
-
-	  ("http://feeds2.feedburner.com/MarksDailyApple/" main fitness diet)
-	  ("http://eatingacademy.com/feed" main diet)
-	  ("http://rawfoodsos.com/feed/" main diet)
-
-	  ("http://www.catalystathletics.com/rss/index.php" main fitness)
-	  ("http://mentalitywod.com/feed/" main fitness)
-
-	  ("http://feeds.feedburner.com/zenhabits" main advice)
-	  ("http://www.scottberkun.com/feed/" main advice)
+	    ("http://www.masteringemacs.org/feed/" main emacs)
+	    ("http://pragmaticemacs.com/feed/" main emacs)
 
 
-	  ("http://datawod.com/feed.atom" main mine data)
-	  ("http://blog.macphunk.net/feed.xml" main mine)
+	    ("http://blog.megafaunasoft.com/feeds/posts/default" main brian)
+	    ("http://blog.booleanbiotech.com/feeds/all.atom.xml" main brian data)
+
+	    ("http://swannodette.github.com/atom.xml" main clojure)
+
+	    ("http://feeds2.feedburner.com/MarksDailyApple/" main fitness diet)
+	    ("http://eatingacademy.com/feed" main diet)
+	    ("http://rawfoodsos.com/feed/" main diet)
+
+	    ("http://www.catalystathletics.com/rss/index.php" main fitness)
+	    ("http://mentalitywod.com/feed/" main fitness)
+
+	    ("http://feeds.feedburner.com/zenhabits" main advice)
+	    ("http://www.scottberkun.com/feed/" main advice)
+
+
+	    ("http://datawod.com/feed.atom" main mine data)
+	    ("http://blog.macphunk.net/feed.xml" main mine)
+	    )
 	  )
-	(setq-default elfeed-search-filter "@1-week-ago +unread ")
-	)))
+    (setq-default elfeed-search-filter "@1-week-ago +unread ")
+    ))
 
 ;; (use-package flyspell)
 ;; ;; flyspell config
@@ -292,6 +293,9 @@
 ;;          ("\\.md\\'" . markdown-mode)
 ;;          ("\\.markdown\\'" . markdown-mode))
 
+(use-package zenburn-theme
+  :ensure t
+  )
 
 (use-package markdown-mode
   :ensure t
@@ -336,7 +340,6 @@
     (elpy-enable)
     (remove-hook 'elpy-modules 'elpy-module-flymake)
     ))
-
 ;; (use-package blackboard-theme)
 ;; (use-package solarized-theme)
 ;; (use-package zenburn-theme)
