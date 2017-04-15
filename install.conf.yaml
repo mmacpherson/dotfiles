@@ -22,4 +22,4 @@
     ~/.zshenv: prezto/runcoms/zshenv
     ~/.zshrc: prezto/runcoms/zshrc
 
-    ~/.emacs.d: emacs.d
+    # ~/.emacs.d: emacs.d
