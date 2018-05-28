@@ -22,4 +22,7 @@
     ~/.zshenv: prezto/runcoms/zshenv
     ~/.zshrc: prezto/runcoms/zshrc
 
+    ~/.eslintrc: eslintrc
+    ~/.jsbeautifyrc: jsbeautifyrc
+
     # ~/.emacs.d: emacs.d
